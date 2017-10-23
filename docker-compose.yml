@@ -1,5 +1,13 @@
 version: "3.0"
 services:
+  webpack:
+    build:
+      context: .
+      dockerfile: docker/webpack.Dockerfile
+    volumes:
+      - ./webpack:/app/local/webpack
+    ports:
+      - "9000:9000"
   api:
     build:
       context: .
@@ -11,9 +19,9 @@ services:
     links:
       - redis
     environment:
-      - FLASK_DEBUG=1 
+      - FLASK_DEBUG=1
   redis:
-    image: redis:latest
+    image: redis:4.0.2
     ports:
       - "6380:6379"
     command: "redis-server"

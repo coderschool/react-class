@@ -1,2 +1,3 @@
 webpack/target
 webpack/node_modules
+*.pyc

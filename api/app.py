@@ -36,27 +36,34 @@ def clear_all():
   }
   return wrap(info)
 
-@app.route('/users/<user_id>/items', methods = ['GET', 'POST'])
-def user_items(user_id):
+@app.route('/tweets', methods = ['GET', 'POST'])
+def tweet():
   if request.method == 'GET':
     cursor = request.args.get('cursor') or 0
     limit = request.args.get('limit') or 10
-    return wrap(get_user_items(user_id, cursor, limit))
+    return wrap(get_tweets(cursor, limit))
   if request.method == 'POST':
-    data = request.get_json()
-    return post_user_items(user_id, data)
+    data = request.form
+    return post_tweet(data)
 
-def get_user_items(user_id, cursor, limit):
-  items = redis.lrange(user_id, cursor, cursor + limit - 1)
+tweet_key = 'tweets'
+
+def get_tweets(cursor, limit):
+  items = redis.lrange(tweet_key, cursor, cursor + limit - 1)
+  ids = range(cursor, cursor + limit - 1)
+  likes = [get_tweet_likes(i) for i in ids]
+  results = [{'text': text, 'id': idd, 'likes': likes} for (text, idd, likes) in zip(items, ids, likes)]
   return {
-    'items': items
+    'items': results
   }
 
-def post_user_items(user_id, data):
-  text = data.get('text')
-  if text:
-    res = redis.lpush(user_id, text)
-    print >> sys.stderr, res
+def get_tweet_likes(tweet_id):
+  return int(redis.get(tweet_likes_key(str(tweet_id))) or 0)
+
+def post_tweet(data):
+  text = data['text']
+  if text and len(text.strip()):
+    res = redis.lpush(tweet_key, text)
     return wrap({
       'success': True
     })
@@ -65,5 +72,14 @@ def post_user_items(user_id, data):
       'success': False
     })
 
-  # insert data into redis
+def tweet_likes_key(tweet_id):
+  return 'likes_' + tweet_id
+
+@app.route('/tweets/<tweet_id>/like', methods = ['POST'])
+def like_tweet(tweet_id):
+  count = redis.incr(tweet_likes_key(tweet_id))
+  return wrap({
+    'count': count,
+    'success': True
+  })
 

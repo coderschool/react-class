@@ -23,6 +23,7 @@ gulp.task('build', ['clean'], () => {
   console.log(path);
   return gulp.src(paths.clientEntryPoint)
     .pipe(webpack(webpackConfig))
+    .on('error', onError)
     .pipe(gulp.dest(path));
 });
 
@@ -47,3 +48,8 @@ gulp.task('webserver', () => {
 });
 
 gulp.task('default', ['webserver', 'watch', 'build']);
+
+function onError(err) {
+  console.log(err);
+  this.emit('end');
+}

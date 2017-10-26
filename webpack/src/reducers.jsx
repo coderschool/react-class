@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 
 export const CHANGE_NODE = 'CHANGE_NODE';
 
-export const nodeReducer = (state = {node: 'tweet'}, action) => {
+export const nodeReducer = (state = {node: 'list'}, action) => {
   switch (action.type) {
     case CHANGE_NODE:
       return {

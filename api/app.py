@@ -15,10 +15,14 @@ redis = redis.StrictRedis(
 
 # Halpers
 def wrap(info):
-  return Response(json.dumps(info, indent=4), mimetype='application/json')
+  base = Response(json.dumps(info, indent=4), mimetype='application/json')
+  base.headers['Access-Control-Allow-Origin'] = 'http://localhost:9000'
+  return base
 
 def fail(info):
-  return Response(json.dumps(info, indent=4), mimetype='application/json', status=400)
+  base = Response(json.dumps(info, indent=4), mimetype='application/json', status=400)
+  base.headers['Access-Control-Allow-Origin'] = 'http://localhost:9000'
+  return base
 
 @app.route('/easter')
 def index():

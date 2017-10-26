@@ -24,9 +24,8 @@ export default class TweetBoxComponent extends React.Component {
 
   render () {
     const text = this.props.local.getIn(['tweetbox', 'text']) || '';
-    console.log(text);
-    const tweet = () => {
-      this.props.tweet(text)
+    const postTweet = () => {
+      this.props.postTweet(text)
     }
     const tweetDisabled = text.length === 0 || this.remainingCharacters(text) < 0
 
@@ -40,7 +39,7 @@ export default class TweetBoxComponent extends React.Component {
         <span>{ this.remainingCharacters(text) }</span>
         <button className="btn btn-primary pull-right" 
                 disabled={tweetDisabled} 
-                onClick={tweet}>
+                onClick={postTweet}>
           Tweet
         </button>
       </div>

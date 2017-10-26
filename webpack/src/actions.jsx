@@ -7,8 +7,9 @@ const changeNode = (node, url) => ({
 });
 
 const ajaxAction = (name, method, url, body) => {
-  const payload = fetch(url, {
-    credentials: 'same-origin',
+  const host = 'http://localhost:5000'
+  const payload = fetch(host + url, {
+    // credentials: 'same-origin',
     method,
     body,
   }).then(function(response){
@@ -17,6 +18,7 @@ const ajaxAction = (name, method, url, body) => {
       e.status = response.status;
       throw e
     }
+    return response.json();
   });
 
   // Only meta is preserved
@@ -38,32 +40,16 @@ const localAction = (name, key, value) => {
   };
 };
 
-
-const loginOrRegister = (dispatch, f) => {
-  return f()
-    .then((data) => {
-      document.cookie = `session=${data.value.session}`
-      return data.value;
-    })
-    .then((data) => {
-      if (data.role == 'admin' || data.role == 'manager') {
-        dispatch(changeNode('userList'));
-      } else {
-        dispatch(changeNode('expenseList'));
-      }    
-    });
-}
-
 export const mapDispatchToProps = dispatch => ({
   // tweets
   fetchAllTweets: (userId) => {
-
+    return dispatch(ajaxAction('tweets', 'GET', '/tweets'))
   },
-  tweet: (text) => {
-    console.log('tweet');
-    console.log('text');
-    // return dispatch(ajaxAction('tweet'))
-    //   .then(() => dispatch(ajaxAction('tweets', 'GET', `/tweet`)))
+  postTweet: (text) => {
+    const formData = new FormData();    
+    formData.append('text', text);
+    return dispatch(ajaxAction('tweet', 'POST', '/tweets', formData))
+      .then(() => dispatch(ajaxAction('tweets', 'GET', '/tweets')))
   },
   // local
   localAction: (name, key) => (value) => { dispatch(localAction(name, key, value))}

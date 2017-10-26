@@ -3,7 +3,8 @@ import 'whatwg-fetch';
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import TweetBox from './components/tweetbox'
+import TweetBox from './components/tweetbox';
+import TweetList from './components/tweetlist';
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
@@ -15,7 +16,7 @@ import { mapDispatchToProps } from './actions';
 
 const App = props => {
   const fsm = {
-    tweet: TweetBox,
+    list: TweetList,
   };
 
   const {node} = props;
@@ -28,6 +29,7 @@ const App = props => {
 
   return (
     <div>
+      <TweetBox {...props}/>
       <Node {...props}/>
     </div>
   );

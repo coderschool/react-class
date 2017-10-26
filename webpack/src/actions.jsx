@@ -51,6 +51,10 @@ export const mapDispatchToProps = dispatch => ({
     return dispatch(ajaxAction('tweet', 'POST', '/tweets', formData))
       .then(() => dispatch(ajaxAction('tweets', 'GET', '/tweets')))
   },
+  likeTweet: (tweetId) => {
+    return dispatch(ajaxAction('b', 'POST', `/tweets/${tweetId}/like`))
+      .then(() => dispatch(ajaxAction('tweets', 'GET', '/tweets')))
+  },
   // local
   localAction: (name, key) => (value) => { dispatch(localAction(name, key, value))}
 });

@@ -4,15 +4,13 @@ import Immutable from 'immutable';
 
 export default class TweetItemComponent extends React.Component {
 
-  componentDidMount() {
-  }
-
   render () {
     return (
       <div>
         <span>Id: {this.props.id}</span>
         <span>{this.props.text}</span>
         <span>Likes: {this.props.likes}</span>
+        <button onClick={this.props.likeTweet}>Like</button>
       </div>
     );
   }

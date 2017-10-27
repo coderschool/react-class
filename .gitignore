@@ -1,3 +1,5 @@
-webpack/target
 webpack/node_modules
+webpack/target
+webpack2/node_modules
+webpack2/target
 *.pyc

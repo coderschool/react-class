@@ -1,0 +1,15 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "author": "Jieren Chen <jieren.chen@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+  },
+  "scripts": {
+    "cleanup": "gulp clean",
+    "build": "gulp build",
+    "start": "gulp"
+  },
+  "dependencies": {
+  }
+}

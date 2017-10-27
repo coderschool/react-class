@@ -26,7 +26,8 @@ export default class TweetBoxComponent extends React.Component {
   render () {
     const text = this.props.local.getIn(['tweetbox', 'text']) || '';
     const postTweet = () => {
-      this.props.postTweet(text)
+      this.props.postTweet(text);
+      this.props.localReset('tweetbox', 'text');
     }
     const tweetDisabled = text.length === 0 || this.remainingCharacters(text) < 0
 

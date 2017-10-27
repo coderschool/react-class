@@ -32,11 +32,17 @@ const ajaxAction = (name, method, url, body) => {
 };
 
 const localAction = (name, key, value) => {
+  var v;
+  if (!value) {
+    v = '';
+  } else {
+    v = value.target.value;
+  }
   return {
     type: LOCAL,
     name,
     key,
-    value: value.target.value,
+    value: v,
   };
 };
 
@@ -56,5 +62,8 @@ export const mapDispatchToProps = dispatch => ({
       .then(() => dispatch(ajaxAction('tweets', 'GET', '/tweets')))
   },
   // local
+  localReset: (name, key) => {
+    return dispatch(localAction(name, key, null))
+  },
   localAction: (name, key) => (value) => { dispatch(localAction(name, key, value))}
 });

@@ -3,15 +3,17 @@ import _ from 'lodash';
 import Immutable from 'immutable';
 import TweetItem from './tweetitem';
 import {Grid, Row} from 'react-bootstrap';
+import Loading from 'react-loading-spinner';
 
 export default class TweetListComponent extends React.Component {
 
   componentDidMount() {
-    console.log('test');
     this.props.fetchAllTweets();
   }
 
   render () {
+    const isLoading = this.props.remote.getIn(['tweets', 'pending']) || false;
+
     const tweets = this.props.remote.getIn(['tweets', 'items']) || [];
 
     const items = tweets.map((tweet) => {
@@ -30,9 +32,11 @@ export default class TweetListComponent extends React.Component {
     })
 
     return (
-      <Grid>
-        {items}
-      </Grid>
+      <Loading isLoading={isLoading}>
+        <Grid>
+          {items}
+        </Grid>
+      </Loading>
     );
   }
 }

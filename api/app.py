@@ -69,7 +69,9 @@ def post_tweet(data):
   if text and len(text.strip()):
     res = redis.lpush(tweet_key, text)
     return wrap({
-      'success': True
+      'id': (res - 1),
+      'text': text,
+      'likes': 0
     })
   else:
     return fail({

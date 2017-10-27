@@ -8,11 +8,9 @@ export default class TweetItemComponent extends React.Component {
   render () {
     return (
       <Jumbotron>
-        <span>Id: {this.props.id}</span>
         <p>{this.props.text}</p>
         <p>
-          <span>Likes: {this.props.likes}</span>
-          <Button onClick={this.props.likeTweet}>Like</Button>
+          <Button onClick={this.props.likeTweet}>Likes: {this.props.likes}</Button>
         </p>
       </Jumbotron>
     );

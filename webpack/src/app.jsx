@@ -13,22 +13,25 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { localReducer, ajaxReducer, nodeReducer } from './reducers';
 import { mapDispatchToProps } from './actions';
 
+// import logo from './images/logo.svg';
 
 const App = props => {
   const fsm = {
     list: TweetList,
   };
-
   const {node} = props;
-
   const Node = fsm[node.node];
 
   if (!Node) {
     console.log(`ERROR node not found: ${node.node}`);
   }
+        // <img className="App-logo" alt="logo" />
 
   return (
-    <div>
+    <div className="App">
+      <header className="App-header">
+        <h1 className="App-title">Welcome to CoderSchool Prework</h1>
+      </header>
       <TweetBox {...props}/>
       <Node {...props}/>
     </div>

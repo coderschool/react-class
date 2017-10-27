@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { FormControl, Button, ControlLabel, FormGroup } from 'react-bootstrap';
 
 export default class TweetBoxComponent extends React.Component {
   remainingCharacters (text) {
@@ -30,18 +31,21 @@ export default class TweetBoxComponent extends React.Component {
     const tweetDisabled = text.length === 0 || this.remainingCharacters(text) < 0
 
     return (
-      <div className="well clearfix">
+      <div className="App-intro">
         { this.overflowAlert(text) }
-        <textarea className="form-control" 
-                  onChange={this.props.localAction('tweetbox', 'text')}>
-        </textarea>
-        <br/>
-        <span>{ this.remainingCharacters(text) }</span>
-        <button className="btn btn-primary pull-right" 
-                disabled={tweetDisabled} 
-                onClick={postTweet}>
+        <FormGroup>
+          <ControlLabel>Tweet here</ControlLabel>
+          <FormControl componentClass="textarea"
+                       value={text}
+                       onChange={this.props.localAction('tweetbox', 'text')}
+                       placeholder="test">
+          </FormControl>
+        </FormGroup>
+        <p>{ this.remainingCharacters(text) }</p>
+        <Button onClick={postTweet}
+                disabled={tweetDisabled}>
           Tweet
-        </button>
+        </Button>
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import Immutable from 'immutable';
 import TweetItem from './tweetitem';
+import Table from 'react-bootstrap';
 
 export default class TweetListComponent extends React.Component {
 
@@ -15,22 +16,24 @@ export default class TweetListComponent extends React.Component {
 
     const items = tweets.map((tweet) => {
       const tweetJs = tweet.toJS()
-
       const likeTweet = () => {
         return this.props.likeTweet(tweetJs.id);
       }
-
       return (
-        <TweetItem id={tweetJs.id}
-                   key={tweetJs.id} 
-                   text={tweetJs.text} 
-                   likes={tweetJs.likes}
-                   likeTweet={likeTweet} />
+        <tr><td>
+          <TweetItem id={tweetJs.id}
+                     key={tweetJs.id} 
+                     text={tweetJs.text} 
+                     likes={tweetJs.likes}
+                     likeTweet={likeTweet} />
+        </td></tr>
       );
     })
 
     return (
-      <div>{items}</div>
+      <Table striped hover>
+        {items}
+      </Table>
     );
   }
 }

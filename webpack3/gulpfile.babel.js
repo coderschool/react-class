@@ -1,10 +1,8 @@
-import gulp from 'gulp';
 import babel from 'gulp-babel';
+import gulp from 'gulp';
 import del from 'del';
 import {argv} from 'yargs';
-import webpack from 'webpack-stream';
 import connect from 'gulp-connect';
-import webpackConfig from './webpack.config.babel';
 
 const paths = {
   allSrcJs: 'src/**/*.js?(x)',
@@ -23,13 +21,13 @@ gulp.task('html', () => {
     .pipe(connect.reload());
 });
 
-gulp.task('js', () => {
+gulp.task('build', () => {
   gulp.src('./src/*.js')
     .pipe(connect.reload());
 });
 
 gulp.task('watch', () => {
-  gulp.watch(paths.allSrcJs, ['js']);
+  gulp.watch(paths.allSrcJs, ['build']);
   gulp.watch('./src/*.html', ['html']);
 });
 

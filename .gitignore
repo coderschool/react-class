@@ -1,5 +1,10 @@
+webpack/npm-debug.log
 webpack/node_modules
 webpack/target
+webpack2/npm-debug.log
 webpack2/node_modules
 webpack2/target
+webpack3/npm-debug.log
+webpack3/node_modules
+webpack3/target
 *.pyc

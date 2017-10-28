@@ -10,7 +10,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
 import promiseMiddleware from 'redux-promise-middleware';
 
-import { localReducer, ajaxReducer, nodeReducer } from './reducers';
+import { localReducer, ajaxReducer } from './reducers';
 import { mapDispatchToProps } from './actions';
 
 import { Grid, Row } from 'react-bootstrap';
@@ -43,7 +43,6 @@ const logger = store => next => action => {
 
 const store = createStore(
   combineReducers({
-    node: nodeReducer,
     local: localReducer,
     remote: ajaxReducer,
   }),

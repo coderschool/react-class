@@ -1,12 +1,23 @@
-$(document).ready(function(){
-  $.get('http://localhost:5000/tweets', {}, function(data) {
-    console.log(data)
+function likeTweet(tweetId) {
+  $.post('http://localhost:5000/tweets/' + tweetId + '/like', {
+
+  },function(data) {
+    let selector = '#tweet-' + data.id + ' .liked';
+    $(selector).html(data.likes);;    
   });
-});
+}
 
 function tweetTempl(tweetObj) {
-  return "<p>" + tweetObj.text + "</p>";
+  return "<p id='tweet-"+ tweetObj.id +"'>" + tweetObj.text + "<button onclick='likeTweet("+ tweetObj.id + ")'>Like: <span class='liked'>" + tweetObj.likes + "</span></button></p>";
 }
+
+$(document).ready(function(){
+  $.get('http://localhost:5000/tweets', {}, function(data) {
+    data.items.forEach(function(item) {
+      $('#tweetsList').append(tweetTempl(item));
+    });
+  });
+});
 
 $('#tweetInput').on('input', function(e) {
   let tweetLength = e.target.value.length;
@@ -26,11 +37,10 @@ $('#tweetButton').on('click', function() {
   $.post('http://localhost:5000/tweets', {
     'text': tweet
   }, function(data) {
-    console.log(data)
+    // Problem 2: I have a templating problem here.
+    $('#tweetsList').prepend(tweetTempl(data));
   })
 
-  // Problem 2: I have a templating problem here.
-  $('#tweetsList').append(tweetTempl(tweet));
   // Problem 3: Additional logic leaking in here.
   $('#tweetInput').val('')
 })

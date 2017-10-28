@@ -1,21 +1,21 @@
 version: "3.0"
 services:
-  # webpack:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/webpack.Dockerfile
-  #   volumes:
-  #     - ./webpack:/app/local/webpack
-  #   ports:
-  #     - "9000:9000"
-  # webpack2:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/webpack.Dockerfile
-  #   volumes:
-  #     - ./webpack2:/app/local/webpack 
-  #   ports:
-  #     - "9000:9000"
+  webpack:
+    build:
+      context: .
+      dockerfile: docker/webpack.Dockerfile
+    volumes:
+      - ./webpack:/app/local/webpack
+    ports:
+      - "9001:9000"
+  webpack2:
+    build:
+      context: .
+      dockerfile: docker/webpack.Dockerfile
+    volumes:
+      - ./webpack2:/app/local/webpack 
+    ports:
+      - "9002:9000"
   webpack3:
     build:
       context: .
@@ -23,7 +23,7 @@ services:
     volumes:
       - ./webpack3:/app/local/webpack 
     ports:
-      - "9000:9000"
+      - "9003:9000"
   api:
     build:
       context: .

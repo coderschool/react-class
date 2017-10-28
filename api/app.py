@@ -16,12 +16,12 @@ redis = redis.StrictRedis(
 # Halpers
 def wrap(info):
   base = Response(json.dumps(info, indent=4), mimetype='application/json')
-  base.headers['Access-Control-Allow-Origin'] = 'http://localhost:9000'
+  base.headers['Access-Control-Allow-Origin'] = '*'
   return base
 
 def fail(info):
   base = Response(json.dumps(info, indent=4), mimetype='application/json', status=400)
-  base.headers['Access-Control-Allow-Origin'] = 'http://localhost:9000'
+  base.headers['Access-Control-Allow-Origin'] = '*'
   return base
 
 @app.route('/easter')
@@ -85,7 +85,7 @@ def tweet_likes_key(tweet_id):
 def like_tweet(tweet_id):
   count = redis.incr(tweet_likes_key(tweet_id))
   return wrap({
-    'count': count,
-    'success': True
+    'id': tweet_id,
+    'likes': count
   })
 

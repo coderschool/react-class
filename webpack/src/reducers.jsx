@@ -1,19 +1,5 @@
 import Immutable from 'immutable';
 
-export const CHANGE_NODE = 'CHANGE_NODE';
-
-export const nodeReducer = (state = {node: 'list'}, action) => {
-  switch (action.type) {
-    case CHANGE_NODE:
-      return {
-        node: action.node,
-        url: action.url,
-      };
-    default:
-      return state;
-  }
-};
-
 export const AJAX = 'AJAX';
 const AJAX_PENDING = 'AJAX_PENDING';
 const AJAX_FULFILLED = 'AJAX_FULFILLED';

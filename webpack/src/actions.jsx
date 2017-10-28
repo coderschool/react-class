@@ -1,15 +1,8 @@
-import { LOCAL, AJAX, CHANGE_NODE } from './reducers';
-
-const changeNode = (node, url) => ({
-  type: CHANGE_NODE,
-  url,
-  node
-});
+import { LOCAL, AJAX } from './reducers';
 
 const ajaxAction = (name, method, url, body) => {
   const host = 'http://localhost:5000'
   const payload = fetch(host + url, {
-    // credentials: 'same-origin',
     method,
     body,
   }).then(function(response){
